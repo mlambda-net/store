@@ -1,0 +1,11 @@
+/go.sum
+/vendor/
+.idea
+/dist
+
+/web/node_modules
+
+web/build/
+
+.eslintcache
+package-lock.json

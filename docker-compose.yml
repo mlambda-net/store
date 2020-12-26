@@ -1,0 +1,53 @@
+version: '3.7'
+services:
+
+  data:
+    ports:
+      - "5432:5432"
+    build:
+      dockerfile: docker/db/Dockerfile
+      context: .
+
+  migrate:
+    command: -configFiles=/db/flyway.conf -connectRetries=60 clean migrate
+    build:
+      context: .
+      dockerfile: docker/migrate/Dockerfile
+    depends_on:
+      - data
+
+  store_cache:
+    ports:
+    - "6379:6379"
+    build:
+      context: .
+      dockerfile: docker/cache/Dockerfile
+
+  store_server:
+    ports:
+      - "9000:9000"
+    env_file:
+      - ./env/dev_server.env
+    build:
+      context: .
+      dockerfile: docker/server/Dockerfile
+
+  store_api:
+    ports:
+      - "9090:9090"
+      - "9091:9091"
+      - "9092:9092"
+    env_file:
+      - ./env/dev_api.env
+    build:
+      context: .
+      dockerfile: docker/api/Dockerfile
+
+  store_index:
+    ports:
+      - "9200:9200"
+    environment:
+      -  "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    build:
+      context: .
+      dockerfile: docker/index/Dockerfile

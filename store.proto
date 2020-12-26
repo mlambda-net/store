@@ -1,0 +1,144 @@
+syntax = "proto3";
+package message;
+
+enum SearchBy {
+  ID = 0;
+  NAME = 1;
+  CODE = 2;
+}
+
+message Image {
+  string url = 1;
+}
+
+message CreateProduct {
+  string id = 1;
+  string code = 2;
+  string name = 3;
+  string brand = 4;
+  string currency = 5;
+  double price = 6;
+  string category = 7;
+  string description = 8;
+  string thumbnail = 9;
+  repeated string images = 10;
+}
+
+message EditProduct {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message EditPrice {
+  string id = 1;
+  double price = 2;
+}
+
+message Fetch {
+  string filter = 1;
+  SearchBy by = 2;
+}
+
+message Search {
+  string value = 1;
+}
+
+message Product {
+  string id = 1;
+  string code = 2;
+  string name = 3;
+  string description = 4;
+  string currency = 5;
+  string category = 6;
+  string brand = 7;
+  double price = 8;
+  string preview = 9;
+  repeated string images = 10;
+  string priceText = 11;
+}
+
+message Products {
+  repeated Product products = 1;
+}
+
+message Add {
+  string code = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+}
+
+message Delete {
+  string id = 1;
+}
+
+message ProductId {
+  string id = 1;
+}
+
+message All {
+}
+
+//Currency
+message Currency {
+  string Character = 1;
+  string Name = 2;
+  string Symbol = 3;
+}
+
+message Currencies {
+  repeated Currency Currency = 1;
+}
+
+message CurrencyAll {
+}
+
+
+message Categories {
+  string lang = 1;
+}
+
+message Brands {
+}
+
+message BrandAdd {
+  string Name = 1;
+}
+
+message CategoryAdd {
+  string Name = 1;
+}
+
+message SubCategory {
+  string Category = 1;
+}
+
+message SubCategoryAdd {
+  string Category = 1;
+  string Name = 2;
+}
+
+message Lookup {
+  string Name = 1;
+}
+
+message Lookups {
+  repeated Lookup Lookups = 1;
+}
+
+message Done {
+}
+
+message ImageAdd {
+  string id = 1;
+  string file = 2;
+  string type = 3;
+  string size = 4;
+  string kind = 5;
+  bytes content = 6;
+}
+
+message ImageUrl {
+  string url = 1;
+}

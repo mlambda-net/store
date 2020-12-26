@@ -1,0 +1,329 @@
+definitions:
+  core.Done:
+    type: object
+  message.Add:
+    properties:
+      code:
+        type: string
+      description:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+    type: object
+  message.BrandAdd:
+    properties:
+      Name:
+        type: string
+    type: object
+  message.CategoryAdd:
+    properties:
+      Name:
+        type: string
+    type: object
+  message.Currency:
+    properties:
+      Character:
+        type: string
+      Name:
+        type: string
+      Symbol:
+        type: string
+    type: object
+  message.Delete:
+    properties:
+      id:
+        type: string
+    type: object
+  message.Done:
+    type: object
+  message.EditPrice:
+    properties:
+      id:
+        type: string
+      price:
+        type: number
+    type: object
+  message.EditProduct:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  message.Lookup:
+    properties:
+      Name:
+        type: string
+    type: object
+  message.Product:
+    properties:
+      code:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      images:
+        items:
+          type: string
+        type: array
+      name:
+        type: string
+      preview:
+        type: string
+      price:
+        type: number
+    type: object
+  message.ProductId:
+    properties:
+      id:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /brand:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/message.Lookup'
+            type: array
+        "500":
+          description: Internal error
+          schema:
+            type: string
+      summary: Get the brands
+    post:
+      parameters:
+      - description: create brand
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/message.BrandAdd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/message.Done'
+        "500":
+          description: Internal error
+          schema:
+            type: string
+      summary: Add the brand
+  /category:
+    post:
+      parameters:
+      - description: create category
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/message.CategoryAdd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/message.Done'
+        "500":
+          description: Internal error
+          schema:
+            type: string
+      summary: Add the category
+  /category/{lang}:
+    get:
+      parameters:
+      - description: get categories
+        in: path
+        name: lang
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/message.Lookup'
+            type: array
+        "500":
+          description: Internal error
+          schema:
+            type: string
+      summary: Get the categories
+  /currency:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/message.Currency'
+            type: array
+        "500":
+          description: Internal error
+          schema:
+            type: string
+      summary: Get the currencies
+  /product:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/message.Product'
+            type: array
+        "500":
+          description: Internal error
+          schema:
+            type: string
+      summary: Get the products
+    post:
+      parameters:
+      - description: create product
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/message.Add'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/message.ProductId'
+        "500":
+          description: Internal error
+          schema:
+            type: string
+      summary: Create the product
+    put:
+      parameters:
+      - description: edit product
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/message.EditProduct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/core.Done'
+        "500":
+          description: Internal error
+          schema:
+            type: string
+      summary: Edit the product
+  /product/{id}:
+    delete:
+      parameters:
+      - description: search by id
+        in: path
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/message.Delete'
+        "500":
+          description: Internal error
+          schema:
+            type: string
+      summary: Delete the product
+    get:
+      parameters:
+      - description: search by id
+        in: path
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/message.Product'
+        "404":
+          description: Not found
+          schema:
+            type: string
+        "500":
+          description: Internal error
+          schema:
+            type: string
+      summary: Get the product
+  /product/price:
+    put:
+      parameters:
+      - description: edit product price
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/message.EditPrice'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/core.Done'
+        "500":
+          description: Internal error
+          schema:
+            type: string
+      summary: edit product price
+  /product/stream:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/message.Product'
+            type: array
+        "500":
+          description: Internal error
+          schema:
+            type: string
+      summary: Get the product
+securityDefinitions:
+  AccessCode:
+    authorizationUrl: https://oauth.mitienda.co.cr/authorize
+    flow: accessCode
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+    tokenUrl: https://oauth.mitienda.co.cr/token
+    type: oauth2
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
