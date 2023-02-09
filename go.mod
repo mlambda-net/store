@@ -9,7 +9,7 @@ require (
 	github.com/aws/aws-sdk-go v1.37.15
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20210311100734-5d6b0c808457
 	github.com/etherlabsio/healthcheck v0.0.0-20191224061800-dd3d2fd8c3f6
-	github.com/gin-gonic/gin v1.6.3
+	github.com/gin-gonic/gin v1.7.7
 	github.com/go-openapi/spec v0.20.3 // indirect
 	github.com/go-pg/pg/v10 v10.8.0
 	github.com/go-redis/redis/v8 v8.7.1
@@ -30,7 +30,6 @@ require (
 	golang.org/x/net v0.0.0-20210423184538-5f58ad60dda6 // indirect
 	golang.org/x/sys v0.0.0-20210423185535-09eb48e85fd7 // indirect
 	golang.org/x/text v0.3.6
-	golang.org/x/tools v0.1.0 // indirect
 	google.golang.org/api v0.45.0
 	google.golang.org/genproto v0.0.0-20210423144448-3a41ef94ed2b // indirect
 )
